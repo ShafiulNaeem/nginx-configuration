@@ -1,0 +1,21 @@
+ # CORS headers
+    location /uploads/ {
+        # Handle OPTIONS requests for CORS preflight
+        if ($request_method = OPTIONS ) {
+            add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'Origin, Content-Type, Accept, Authorization, X-Requested-With, X-Token-Auth';
+            add_header 'Access-Control-Allow-Credentials' 'true';
+            add_header 'Access-Control-Max-Age' 86400;
+            return 204;
+        }
+
+        # Handle GET requests with CORS headers
+        add_header 'Access-Control-Allow-Origin' '*';
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS';
+        add_header 'Access-Control-Allow-Headers' 'Origin, Content-Type, Accept, Authorization, X-Requested-With, X-Token-Auth';
+        add_header 'Access-Control-Allow-Credentials' 'true';
+        add_header 'Access-Control-Expose-Headers' 'Content-Disposition';
+
+        try_files $uri $uri/ =404;
+    }
